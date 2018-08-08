@@ -1,3 +1,8 @@
+/*
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
+
 /////////////////////////////////////////////////////////////
 // VehicleBusWrapper:
 //  1) Extension: provides extra methods that can are used by both J1708 and CAN sub-classes

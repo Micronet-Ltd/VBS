@@ -1,3 +1,8 @@
+/*
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ */
+
 /////////////////////////////////////////////////////////////
 // VehicleBusCAN:
 //  Handles the setup/teardown of threads the control the CAN bus, and communications to/from
