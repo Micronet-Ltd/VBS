@@ -549,7 +549,7 @@ public class VehicleBusWrapper extends VehicleBusHW {
             if (setupInterface == null) return false;
 
 
-            //Log.v(TAG, "creating socket");
+            Log.v(TAG, "creating socket");
             setupSocket = createSocket(setupInterface);
             if (setupSocket == null) {
                 removeInterface(setupInterface);
@@ -557,7 +557,7 @@ public class VehicleBusWrapper extends VehicleBusHW {
                 return false;
             }
 
-            //Log.v(TAG, "opening socket");
+            Log.v(TAG, "opening socket");
 
             // we want to discard buffer when opening listen-only sockets because this means we
             //      may be switching bitrates (unless we are only starting J1708, in which case only downside
