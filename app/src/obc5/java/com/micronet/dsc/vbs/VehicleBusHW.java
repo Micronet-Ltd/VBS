@@ -333,7 +333,7 @@ class VehicleBusHW {
                 bitrate_kb + ",true, filterArray," + CAN_PORT1 + ",flowControlMessages)");
         try {
             canInterface.create(listen_only,
-                    bitrate_kb ,
+                    bitrate ,
                     true,
                     filterArray, //
                     CAN_PORT1,
