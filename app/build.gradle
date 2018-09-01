@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId "com.micronet.dsc.vbs"
-        versionCode 301
-        versionName "3.0.1"
+        versionCode 302
+        versionName "3.0.2"
 	    setProperty("archivesBaseName", "MicronetVBS-v" + versionName )
     }
     buildTypes {
