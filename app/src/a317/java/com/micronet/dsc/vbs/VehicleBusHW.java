@@ -12,7 +12,10 @@ package com.micronet.dsc.vbs;
 
 import com.micronet.canbus.CanbusHardwareFilter;
 import com.micronet.canbus.CanbusInterface;
+import com.micronet.canbus.CanbusInterfaceInformation;
 import com.micronet.canbus.CanbusSocket;
+import com.micronet.canbus.GetInterfaceInformation;
+import com.micronet.canbus.J1708InterfaceInformation;
 
 class VehicleBusHW {
     public static final String TAG = "ATS-VBS-HW";
@@ -242,9 +245,90 @@ class VehicleBusHW {
             Log.d(TAG, "Filters = " + filter_str);
         }
 
+        try{
+            getCanInfo(canInterface);
+        } catch (Exception e){
+            Log.e(TAG, "Unable to get CAN debug info");
+        }
+
+
         return new InterfaceWrapper(canInterface);
     } // createInterface()
 
+    public void getCanInfo(CanbusInterface canbusInterface) {
+        GetInterfaceInformation getInterfaceInformation;
+        int returnCode = -1;
+        if (canbusInterface == null) {
+            canbusInterface = new CanbusInterface();
+            getInterfaceInformation = canbusInterface.getQBridgeCanInfo();
+            returnCode = getInterfaceInformation.getReturnCodeRxd();
+            android.util.Log.d(TAG, "Canbus Info Returned, Return code=" + returnCode);
+
+        }
+        else getInterfaceInformation = canbusInterface.getQBridgeCanInfo();
+
+        android.util.Log.d(TAG, "Info Returned: TX count: " +  getInterfaceInformation.getQbCanInformation().getTxCount());
+        android.util.Log.d(TAG, "Info Returned: RX Count: " +  getInterfaceInformation.getQbCanInformation().getRxCount());
+        android.util.Log.d(TAG, "Info Returned: Stuff Error Count: " +  getInterfaceInformation.getQbCanInformation().getStuffErrorCount());
+        android.util.Log.d(TAG, "Info Returned: Form Error Count: " +  getInterfaceInformation.getQbCanInformation().getFormErrorCount());
+        android.util.Log.d(TAG, "Info Returned: Ack Error Count: " +  getInterfaceInformation.getQbCanInformation().getAckErrorCount());
+        android.util.Log.d(TAG, "Info Returned: Bit 1 Error Count: " +  getInterfaceInformation.getQbCanInformation().getBit1ErrorCount());
+        android.util.Log.d(TAG, "Info Returned: Bit 0 Error Count: " +  getInterfaceInformation.getQbCanInformation().getBit0ErrorCount());
+        android.util.Log.d(TAG, "Info Returned: CRC Error Count: " +  getInterfaceInformation.getQbCanInformation().getCrcErrorCount());
+        android.util.Log.d(TAG, "Info Returned: Lost Message Count: " +  getInterfaceInformation.getQbCanInformation().getLostMessageCount());
+        android.util.Log.d(TAG, "Info Returned: CAN Rx interrupt queue overflowed: " +  getInterfaceInformation.getQbCanInformation().getCanRxInterruptQueueOverflowed());
+        android.util.Log.d(TAG, "Info Returned: CAN Rx interrupt queue overflowed count: " +  getInterfaceInformation.getQbCanInformation().getCanRxInterruptQueueOverflowedCount());
+        android.util.Log.d(TAG, "Info Returned: CAN transmit confirm: " +  getInterfaceInformation.getQbCanInformation().getCanTransmitConfirm());
+        android.util.Log.d(TAG, "Info Returned: CAN Bus Off Notify: " +  getInterfaceInformation.getQbCanInformation().getCanBusOffNotify());
+        android.util.Log.d(TAG, "Info Returned: CAN Auto Restart: " +  getInterfaceInformation.getQbCanInformation().getCanAutoRestart());
+        android.util.Log.d(TAG, "Info Returned: CAN Auto Recovery Attempt Count: " +  getInterfaceInformation.getQbCanInformation().getCanAutoRecoveryAttemptCount());
+        android.util.Log.d(TAG, "Info Returned: CAN Rx Wait for host count: " +  getInterfaceInformation.getQbCanInformation().getCanRxWaitForHostCount());
+        android.util.Log.d(TAG, "Info Returned: CAN Rx Bad Value Count: " +  getInterfaceInformation.getQbCanInformation().getcanRxBadValueCount());
+        android.util.Log.d(TAG, "Info Returned: bus off interrupt count: " +  getInterfaceInformation.getQbCanInformation().getBusOffInterruptCount());
+        android.util.Log.d(TAG, "Info Returned: bus off notify count: " +  getInterfaceInformation.getQbCanInformation().getBusOffNotifyCount());
+        android.util.Log.d(TAG, "Info Returned: bus off want to notify host count: " +  getInterfaceInformation.getQbCanInformation().getBusOffWantToNotifyHostCount());
+        android.util.Log.d(TAG, "Info Returned: CAN bus error count: " +  getInterfaceInformation.getQbCanInformation().getCanbusErrorCount());
+        android.util.Log.d(TAG, "Info Returned: CAN dropped from host count: " +  getInterfaceInformation.getQbCanInformation().getcanDroppedFromHostCount());
+        android.util.Log.d(TAG, "Info Returned: CAN Bus transition detected since last time this command was executed: " +  getInterfaceInformation.getQbCanInformation().getCanbusTransitionDetected());
+        android.util.Log.d(TAG, "Info Returned: CAN Current Bus State: " +  getInterfaceInformation.getQbCanInformation().getCanCurrentBusState());
+        android.util.Log.d(TAG, "Info Returned: CAN Free Tx Buffers: " +  getInterfaceInformation.getQbCanInformation().getCanFreeTxBuffers());
+        android.util.Log.d(TAG, "Info Returned: CAN Free Rx Buffers: " +  getInterfaceInformation.getQbCanInformation().getCanFreeRxBuffers());
+        android.util.Log.d(TAG, "Info Returned: CAN Baud Rate: " +  getInterfaceInformation.getQbCanInformation().getCanBaudRate());
+        android.util.Log.d(TAG, "Info Returned: CAN test mode: " +  getInterfaceInformation.getQbCanInformation().getCanTestMode());
+        android.util.Log.d(TAG, "Info Returned: CAN Hardware error counters: " +  getInterfaceInformation.getQbCanInformation().getCanHardwareErrorCount());
+        android.util.Log.d(TAG, "Info Returned: CAN overflow reported: " +  getInterfaceInformation.getQbCanInformation().getCanOverFlowReported());
+    }
+
+    public void getJ1708Info(CanbusInterface canbusInterface){
+        GetInterfaceInformation getInterfaceInformation;
+        int returnCode = -1;
+        if (canbusInterface == null) {
+            canbusInterface = new CanbusInterface();
+            getInterfaceInformation = canbusInterface.getQBridgeJ1708Info();
+            returnCode = getInterfaceInformation.getReturnCodeRxd();
+            android.util.Log.d(TAG, "J1708 Info Returned, Return code=" + returnCode);
+        }
+        else getInterfaceInformation = canbusInterface.getQBridgeJ1708Info();
+
+        J1708InterfaceInformation j1708GetInformation = getInterfaceInformation.getQbJ1708Information();
+
+        android.util.Log.d(TAG, "Information Retuned: J1708 Received packet count: " + getInterfaceInformation.getQbJ1708Information(). getRxCount());
+        android.util.Log.d(TAG, "Information Retuned: J1708 Wait for Busy Bus Count: " + getInterfaceInformation.getQbJ1708Information().getWaitForBusyBusCount());
+        android.util.Log.d(TAG, "Information Retuned: J1708 Collision Count: " + getInterfaceInformation.getQbJ1708Information().getCollisionCount());
+        android.util.Log.d(TAG, "Information Retuned: J1708 Dropped Rx Count: " + getInterfaceInformation.getQbJ1708Information().getDroppedRxCount() );
+        android.util.Log.d(TAG, "Information Retuned: J1708 Dropped Tx Confirm Count: " + getInterfaceInformation.getQbJ1708Information().getDroppedTxConfirmCount());
+        android.util.Log.d(TAG, "Information Retuned: J1708 Dropped packets from host: " + getInterfaceInformation.getQbJ1708Information().getDroppedPacketsFromHost());
+        android.util.Log.d(TAG, "Information Retuned: J1708 MID Filter enabled: " + getInterfaceInformation.getQbJ1708Information().isJ1708FiltersEnabled()  );
+        android.util.Log.d(TAG, "Information Retuned: J1708 Transmit Confirm: " + getInterfaceInformation.getQbJ1708Information().isTransmitConfirm() );
+        android.util.Log.d(TAG, "Information Retuned: J1708 RxQueue Overflowed: " + getInterfaceInformation.getQbJ1708Information().getRxQueueOverflowed()  );
+        android.util.Log.d(TAG, "Information Retuned: J1708 Bus transitions detected since last time this command was issued: " + getInterfaceInformation.getQbJ1708Information().getBusTransitionDetected());
+        android.util.Log.d(TAG, "Information Retuned: J1708 Current bus state: " + getInterfaceInformation.getQbJ1708Information().getCurrentBusState());
+        android.util.Log.d(TAG, "Information Retuned: J1708 Number of free Tx buffers: " + getInterfaceInformation.getQbJ1708Information().getFreeTxBuffers());
+        android.util.Log.d(TAG, "Information Retuned: J1708 Number of free Rx buffers: " + getInterfaceInformation.getQbJ1708Information().getFreeRxBuffers() );
+        android.util.Log.d(TAG, "Information Retuned: J1708 overflow reported: " + getInterfaceInformation.getQbJ1708Information().getOverflowReported() );
+
+
+    }
 
     void removeInterface(InterfaceWrapper wrappedInterface) {
         try {

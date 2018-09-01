@@ -65,7 +65,7 @@ dependencies {
     //compile 'com.android.support:appcompat-v7:21.0.3'
     implementation 'com.android.support:support-core-utils:24.2.0'
     a317Implementation files('libs/a317_canbus_api.jar')
-    obc5Implementation files('libs/obc5_canbus_api.jar')
+    obc5Implementation files('libs/obc5_vehiclebus_api.jar')
 
 }
 
